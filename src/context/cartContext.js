@@ -3,25 +3,48 @@ import React, { createContext, useReducer } from "react";
 export const CartContext = createContext();
 
 const initialState = {
-  carts: [
-    {
-      id: 1,
-      name: "Celana Panjang",
-    },
-    {
-      id: 2,
-      name: "Baju Kemeja",
-    },
-    {
-      id: 3,
-      name: "Sepatu ",
-    },
-  ],
+  carts: [],
   isLogin: false || localStorage.getItem("isLogin"),
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
+    case "ADD_CART":
+      const filterExistedProduct = state.carts.filter(
+        (cart) => cart.id === action.payload.id
+      );
+
+      if (filterExistedProduct.length > 0) {
+        return {
+          ...state,
+          carts: state.carts.map((cart) =>
+            cart.id === action.payload.id
+              ? {
+                  ...cart,
+                  qty: cart.qty + 1,
+                }
+              : cart
+          ),
+        };
+      }
+
+      return {
+        ...state,
+        carts: [
+          ...state.carts,
+          {
+            ...action.payload,
+            qty: 1,
+          },
+        ],
+      };
+
+    case "REMOVE_CART":
+      return {
+        ...state,
+        carts: state.carts.filter((cart) => cart.id !== action.payload),
+      };
+
     case "LOGIN":
       localStorage.setItem("isLogin", true);
 

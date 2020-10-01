@@ -30,7 +30,7 @@ const Navbar = () => {
           </li>
           <li className="nav-item">
             <Link className="nav-link" to="/cart">
-              Cart
+              Cart || {state.carts.length}
             </Link>
           </li>
           <li className="nav-item">
