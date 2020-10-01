@@ -6,6 +6,7 @@ import { CartContextProvider } from "./context/cartContext";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
+import Detail from "./pages/Detail";
 
 import PrivateRoute from "./components/PrivateRoute";
 
@@ -18,6 +19,7 @@ const App = () => {
           <Route exact path="/" component={Login} />
           <PrivateRoute exact path="/home" component={Home} />
           <PrivateRoute exact path="/cart" component={Cart} />
+          <PrivateRoute exact path="/detail/:id" component={Detail} />
         </Switch>
       </BrowserRouter>
     </CartContextProvider>

@@ -1,39 +1,11 @@
 import React, { useContext } from "react";
 import { CartContext } from "../context/cartContext";
+import { products } from "../fakeData/product";
+import { useHistory } from "react-router-dom";
 
 const Home = () => {
+  const history = useHistory();
   const [state, dispatch] = useContext(CartContext);
-
-  const products = [
-    {
-      id: 1,
-      name: "Celana Panjang",
-    },
-    {
-      id: 2,
-      name: "Baju Kemeja",
-    },
-    {
-      id: 3,
-      name: "Sepatu ",
-    },
-    {
-      id: 4,
-      name: "Nintendo Switch Lite",
-    },
-    {
-      id: 5,
-      name: "PS5 ",
-    },
-    {
-      id: 6,
-      name: "Laptop ROG",
-    },
-    {
-      id: 7,
-      name: "Mouse ",
-    },
-  ];
 
   return (
     <div className="container">
@@ -54,7 +26,9 @@ const Home = () => {
                       justifyContent: "center",
                       alignItems: "center",
                       textAlign: "center",
+                      cursor: "pointer",
                     }}
+                    onClick={() => history.push(`/detail/${product.id}`)}
                   >
                     <h1>{product.name}</h1>
                   </div>
