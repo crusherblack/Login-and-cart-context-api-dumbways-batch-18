@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Navbar from "./components/Navbar";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { CartContextProvider } from "./context/cartContext";
 
-function App() {
+import Login from "./pages/Login";
+import Home from "./pages/Home";
+import Cart from "./pages/Cart";
+
+import PrivateRoute from "./components/PrivateRoute";
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <CartContextProvider>
+      <BrowserRouter>
+        <Navbar />
+        <Switch>
+          <Route exact path="/" component={Login} />
+          <PrivateRoute exact path="/home" component={Home} />
+          <PrivateRoute exact path="/cart" component={Cart} />
+        </Switch>
+      </BrowserRouter>
+    </CartContextProvider>
   );
-}
+};
 
 export default App;
