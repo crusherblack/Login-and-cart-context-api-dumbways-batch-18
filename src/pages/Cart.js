@@ -8,7 +8,8 @@ const Cart = () => {
     <div className="container">
       <div className="card mt-3">
         <div className="card-header  bg-success text-white">
-          <h2>Cart Screen</h2>
+          {/*   <h2>Cart Screen | {JSON.stringify(state.user)}</h2> */}
+          <h2>Cart Screen </h2>
         </div>
         <div className="card-body">
           <table className="table table-hovered table-striped table-sm table-bordered">

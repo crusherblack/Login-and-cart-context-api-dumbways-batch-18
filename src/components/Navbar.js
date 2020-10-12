@@ -34,6 +34,21 @@ const Navbar = () => {
             </Link>
           </li>
           <li className="nav-item">
+            <Link className="nav-link" to="/crud">
+              CRUD
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link" to="/crud-react-query">
+              CRUD React Query
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link" to="/api-public">
+              Public API
+            </Link>
+          </li>
+          <li className="nav-item">
             {state.isLogin ? (
               <a
                 className="nav-link"

@@ -1,12 +1,13 @@
 import React, { useState, useContext } from "react";
 import { CartContext } from "../context/cartContext";
+import { API, setAuthToken } from "../config/api";
 
 const Login = () => {
   const [state, dispatch] = useContext(CartContext);
 
   const [formData, setFormData] = useState({
-    email: "fadhildarm13@gmail.com",
-    password: "123456",
+    email: "dumbways@gmail.com",
+    password: "12345678",
   });
 
   const { email, password } = formData;
@@ -15,15 +16,45 @@ const Login = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (email === "fadhildarm13@gmail.com" && password === "123456") {
-      console.log("LOGIN SUCCESS");
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const body = JSON.stringify({ email, password });
+
+    try {
+      const res = await API.post("/login", body, config);
+
       dispatch({
-        type: "LOGIN",
+        type: "LOGIN_SUCCESS",
+        payload: res.data.data,
       });
-    } else {
-      console.log("LOGIN GAGAL");
+
+      console.log(res);
+
+      setAuthToken(res.data.data.token);
+
+      try {
+        const res = await API.get("/auth");
+
+        dispatch({
+          type: "USER_LOADED",
+          payload: res.data.data.user,
+        });
+      } catch (err) {
+        dispatch({
+          type: "AUTH_ERROR",
+        });
+      }
+    } catch (err) {
+      dispatch({
+        type: "LOGIN_FAIL",
+      });
     }
   };
 
